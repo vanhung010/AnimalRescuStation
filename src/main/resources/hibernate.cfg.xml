@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/AnimalRescueStation</property>
+        <property name="connection.username">postgres</property>
+        <property name="connection.password">mw500wtl</property>
+
+        <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+
+        <property name="hbm2ddl.auto">update</property>
+
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+
+        <mapping class="project.entity.Species"/>
+        <mapping class="project.entity.Breed"/>
+        <mapping class="project.entity.Animal"/>
+
+        <mapping class="project.entity.Reporter"/>
+        <mapping class="project.entity.RescueRequest"/>
+        <mapping class="project.entity.RescueMission"/>
+
+        <mapping class="project.entity.Staff"/>
+        <mapping class="project.entity.Volunteer"/>
+        <mapping class="project.entity.Veterinarian"/>
+
+        <mapping class="project.entity.MedicalRecord"/>
+        <mapping class="project.entity.Vaccine"/>
+
+        <mapping class="project.entity.Adopter"/>
+        <mapping class="project.entity.AdoptionTransaction"/>
+        <mapping class="project.entity.Donation"/>
+    </session-factory>
+</hibernate-configuration>

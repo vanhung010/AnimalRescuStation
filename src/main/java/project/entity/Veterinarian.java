@@ -35,4 +35,13 @@ public class Veterinarian extends Staff {
     public void setSpecialty(String specialty) {
         this.specialty = specialty;
     }
+
+    @Override
+    public String toString() {
+        return "Veterinarian{" +
+                "licenseNumber='" + licenseNumber + '\'' +
+                ", specialty='" + specialty + '\'' +
+                ", medicalRecordList=" + medicalRecordList +
+                '}';
+    }
 }

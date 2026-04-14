@@ -30,4 +30,12 @@ public class Volunteer extends Staff {
     public void setAvailableShifts(String availableShifts) {
         this.availableShifts = availableShifts;
     }
+
+    @Override
+    public String toString() {
+        return "Volunteer{" +
+                "availableShifts='" + availableShifts + '\'' +
+                ", trainingStatus='" + trainingStatus + '\'' +
+                '}';
+    }
 }

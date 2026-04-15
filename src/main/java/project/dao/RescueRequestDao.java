@@ -2,8 +2,11 @@ package project.dao;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import project.entity.RescueRequest;
 import project.util.HibernateUtil;
+
+import java.util.List;
 
 public class RescueRequestDao {
 
@@ -23,5 +26,12 @@ public class RescueRequestDao {
             e.printStackTrace();
         }
 
+    }
+
+    //danh sách những yêu cầu cứu hộ
+    public List<RescueRequest> getAllRescurequest(){
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            return session.createQuery("FROM RescueRequest").list();
+        }
     }
 }

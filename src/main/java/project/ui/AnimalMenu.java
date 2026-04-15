@@ -21,15 +21,27 @@ public class AnimalMenu {
     public void displayMenu() {
         while (true) {
             System.out.println("\n--- QUẢN LÝ DANH MỤC LOÀI ---");
-            System.out.println("1. Thêm loài mới");
-            System.out.println("2. Xem danh sách các loài");
-            System.out.println("3. Tìm kiếm loài theo tên");
-            System.out.println("4. Thêm giống mới");
-            System.out.println("5. Thêm tình nguyện viên");
-            System.out.println("6. Thêm bác sĩ thú y");
-            System.out.println("7. Danh sách tất cả các nhân viên");
-            System.out.println("8. Thêm người báo cứu hộ");
+//            System.out.println("1. Thêm loài mới");
+//            System.out.println("2. Xem danh sách các loài");
+//            System.out.println("3. Tìm kiếm loài theo tên");
+//            System.out.println("4. Thêm giống mới");
+//            System.out.println("5. Thêm tình nguyện viên");
+//            System.out.println("6. Thêm bác sĩ thú y");
+//            System.out.println("7. Danh sách tất cả các nhân viên");
+//            System.out.println("8. Thêm người báo cứu hộ");
+//            System.out.println("9. THêm yêu cầu cứu hộ");
+//            System.out.println("10. Danh sách những yêu cầu cứu hộ");
+//            System.out.println("0. Quay lại menu chính");
+            System.out.println("1. Xem danh sách các loài");
+            System.out.println("2. Xem danh sách tất cả các nhân viên");
+            System.out.println("3. Xem danh sách những yêu cầu cứu hộ");
+            System.out.println("4. Xem danh sách những người báo cứu hộ");
+            System.out.println("5. Xem danh sách những cuộc cứu hộ");
+            System.out.println("6. Xem danh sách động vật");
+            System.out.println("7. Xem danh sách những người nhận nuôi");
+            System.out.println("8. Xem danh sách những lần nhận nuôi");
             System.out.println("9. THêm yêu cầu cứu hộ");
+            System.out.println("10. ");
             System.out.println("0. Quay lại menu chính");
             System.out.print("Chọn chức năng: ");
 
@@ -62,12 +74,28 @@ public class AnimalMenu {
                 case 9:
                     addRescueRequest();
                     break;
+                case 10:
+                    allRescueRequest();
+                    break;
                 case 0:
                     return;
                 default:
                     System.out.println("❌ Lựa chọn không hợp lệ!");
             }
         }
+    }
+
+    public void allRescueRequest(){
+        RescueRequestDao rescueRequestDao = new RescueRequestDao();
+        List<RescueRequest> rescueRequestList = rescueRequestDao.getAllRescurequest();
+        System.out.println("-----Danh sách tất cả những yêu cầu cứu hộ");
+        for(RescueRequest rescueRequest : rescueRequestList){
+            System.out.printf("ID: %d | Địa điểm: %s | Tình trạng: %s%n",
+                    rescueRequest.getRequestId(),
+                    rescueRequest.getIncidentLocation(),
+                    rescueRequest.getRequestStatus());
+        }
+
     }
 
     public void addRescueRequest(){

@@ -102,4 +102,8 @@ public class MedicalRecord {
     public void setVaccines(List<Vaccine> vaccines) {
         this.vaccines = vaccines;
     }
+
+    public void add(Vaccine vaccine){
+        this.vaccines.add(vaccine);
+    }
 }

@@ -29,7 +29,7 @@ public class AnimalMenu {
             System.out.println("3. Xem danh sách những yêu cầu cứu hộ");
             System.out.println("4. Xem danh sách những người báo cứu hộ");
             System.out.println("5. Xem danh sách những cuộc cứu hộ");
-            System.out.println("6. Xem danh sách động vật"); //unfinish
+            System.out.println("6. Xem danh sách động vật");
             System.out.println("7. Xem danh sách những người nhận nuôi");
             System.out.println("8. Xem danh sách những lần nhận nuôi");//unfinish
             System.out.println("9. Xem danh sách hồ sơ y tế");//unfinish
@@ -45,11 +45,12 @@ public class AnimalMenu {
             System.out.println("20. Thêm Người nhận nuôi");
             System.out.println("21. Thêm Giao dịch nhận nuôi");//unfinish
             System.out.println("22. Thêm khoản Quyên góp");//unfinish
-            System.out.println("23. Cập nhật trạng thái yêu cầu cứu hộ");//unfinish
-            System.out.println("24. Cập nhật trạng thái chuyến cứu hộ");//unfinish
-            System.out.println("25. Cập nhật trạng thái động vật");//unfinish
-            System.out.println("26. Tính tổng số tiền quyên góp (Donation) trong tháng.");//unfinish
-            System.out.println("27. Tra cứu Lịch sử");//unfinish
+            System.out.println("23. Thêm vaccine cho trạm");
+            System.out.println("24. Cập nhật trạng thái yêu cầu cứu hộ");//unfinish
+            System.out.println("25. Cập nhật trạng thái chuyến cứu hộ");//unfinish
+            System.out.println("26. Cập nhật trạng thái động vật");//unfinish
+            System.out.println("27. Tính tổng số tiền quyên góp (Donation) trong tháng.");//unfinish
+            System.out.println("28. Tra cứu Lịch sử");//unfinish
             System.out.println("0. Quay lại menu chính");
             System.out.print("Chọn chức năng: ");
 
@@ -119,18 +120,21 @@ public class AnimalMenu {
                     addDonation();
                     break;
                 case 23:
-                    updateRescueRequestStatus();
+                    addVaccine();
                     break;
                 case 24:
-                    updateRescueMissionStatus();
+                    updateRescueRequestStatus();
                     break;
                 case 25:
-                    updateAnimalStatus();
+                    updateRescueMissionStatus();
                     break;
                 case 26:
-                    calculateMonthlyDonationTotal();
+                    updateAnimalStatus();
                     break;
                 case 27:
+                    calculateMonthlyDonationTotal();
+                    break;
+                case 28:
                     lookupHistory();
                     break;
                 case 0:
@@ -140,6 +144,41 @@ public class AnimalMenu {
             }
         }
     }
+
+    private void addVaccine() {
+        VaccineDao vaccineDao = new VaccineDao();
+        Vaccine vaccine = new Vaccine();
+
+        System.out.println("Nhập tên vaccine");
+        vaccine.setVaccineName(scanner.nextLine());
+        System.out.println("Nhập mô tả vaccine");
+        vaccine.setDescription(scanner.nextLine());
+        while(true) {
+        System.out.println("Nhập giá vaccine");
+        String priceString = scanner.nextLine();
+        double priceDouble = 0;
+
+            try {
+                priceDouble = Double.parseDouble(priceString);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Vui lòng nhập số");
+            }
+        }
+
+
+
+    }
+
+    public void showAllVaccine(){
+        VaccineDao vaccineDao = new VaccineDao();
+        List<Vaccine> vaccineList = vaccineDao.getAllVaccine();
+        System.out.println("-----Danh sách tất cả vaccine-----");
+        for(Vaccine vaccine : vaccineList){
+            System.out.printf("ID: %d | Tên: %s | Mô tả: %s | Giá: %.2f%n");
+        }
+    }
+
 
     private void addRescueMission() {
         allRescueRequest();
@@ -266,7 +305,8 @@ public class AnimalMenu {
         }
         System.out.println("------Danh sách động vật------");
         for(Animal animal: animalList){
-            System.out.printf("ID: %d | Tên động vật: %s | Tên giống: %s |  ")
+            System.out.printf("ID: %d | Tên động vật: %s | Tên giống: %s | Tuổi ước tính: %d | Tình trạng sức khỏe: %s | Trạng thái nhận nuôi: %s%n", animal.getAnimalId(), animal.getName(),
+                    animal.getBreed().getBreedName(), animal.getEstimatedAge(), animal.getCurrentHealthStatus(), animal.getAdoptionStatus());
         }
     }
 
@@ -394,6 +434,10 @@ public class AnimalMenu {
     }
 
     private void addMedicalRecord() {
+        MedicalRecordDao medicalRecordDao = new MedicalRecordDao();
+        MedicalRecord medicalRecord = new MedicalRecord();
+
+
     }
 
     private void addAdopter() {

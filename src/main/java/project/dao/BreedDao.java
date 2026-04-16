@@ -5,6 +5,8 @@ import org.hibernate.Transaction;
 import project.entity.Breed;
 import project.util.HibernateUtil;
 
+import java.util.List;
+
 public class BreedDao {
 
     //thêm giống
@@ -22,6 +24,20 @@ public class BreedDao {
                 transaction.rollback();
             }
 
+        }
+    }
+
+    //lấy danh sách tất cả giống
+    public List<Breed> getAllBreed(){
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            return session.createQuery("FROM Breed", Breed.class).stream().toList();
+        }
+    }
+
+    //lấy giống bởi id
+    public Breed getBreedById(int id){
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+           return session.get(Breed.class, id);
         }
     }
 }

@@ -40,7 +40,7 @@ public class AnimalMenu {
             System.out.println("15. Thêm người báo cứu hộ");
             System.out.println("16. Thêm yêu cầu cứu ho");
             System.out.println("17. Thêm Chuyến cứu hộ");
-            System.out.println("18. Tiếp nhận Động vật");//unfinish
+            System.out.println("18. Tiếp nhận Động vật");
             System.out.println("19. Thêm Hồ sơ Y tế");//unfinish
             System.out.println("20. Thêm Người nhận nuôi");
             System.out.println("21. Thêm Giao dịch nhận nuôi");//unfinish
@@ -154,7 +154,7 @@ public class AnimalMenu {
         System.out.println("Nhập id yêu cầu cứu hộ");
         int requestid = Integer.parseInt(scanner.nextLine());
         rescueRequest = rescueRequestDao.getRescueRequestById(requestid);
-
+        allStaff();
         while(true){
             System.out.println("Nhập id nhân viên thực hiện cứu hộ (Nhập 0 nếu đã thêm đủ nhân viên)");
             String idStaffString = scanner.nextLine();
@@ -162,6 +162,7 @@ public class AnimalMenu {
            try{
 
                 idStaff = Integer.parseInt(idStaffString);
+                //Nếu nhập 0
                 if(idStaff == 0){
                     System.out.println("Chốt danh sách nhân sự tham gia chuyến đi");
                     break;
@@ -244,6 +245,7 @@ public class AnimalMenu {
             System.out.println("Chưa có chuyến cứu hộ được thực hiện");
         }
         else {
+            System.out.println("-----Danh sách những cuộc cứu hộ-----");
             for(RescueMission rescueMission: rescueMissionList){
                 LocalDateTime dispath = rescueMission.getDispatchTime();
                 LocalDateTime return1 = rescueMission.getReturnTime();
@@ -256,6 +258,16 @@ public class AnimalMenu {
     }
 
     private void showAllAnimals() {
+        AnimalDao animalDao = new AnimalDao();
+        List<Animal> animalList = animalDao.getAllAnimal();
+        if(animalList.isEmpty()) {
+            System.out.println("Chưa có động vật");
+            return;
+        }
+        System.out.println("------Danh sách động vật------");
+        for(Animal animal: animalList){
+            System.out.printf("ID: %d | Tên động vật: %s | Tên giống: %s |  ")
+        }
     }
 
     private void showAllAdopters() {
@@ -280,13 +292,21 @@ public class AnimalMenu {
     private void showAllMedicalRecords() {
     }
 
-
+    public void showAllBreed(){
+        BreedDao breedDao = new BreedDao();
+        List<Breed> breedList = breedDao.getAllBreed();
+        for(Breed breed : breedList){
+            System.out.printf("ID: %d | Tên giống: %s | Mô tả: %s%n", breed.getBreedId(), breed.getBreedName(), breed.getDescription());
+        }
+    }
 
     private void admitAnimal() {
-        showAllRescueMissions();
+        showAllRescueMissions();  //show những cuộc cứu hộ
 
         RescueMissionDao rescueMissionDao = new RescueMissionDao();
+        BreedDao breedDao = new BreedDao();
         Animal animal = new Animal();
+        AnimalDao animalDao = new AnimalDao();
         System.out.println("Nhập id cuộc cứu hộ nếu động vật từ cứu hộ(Bỏ qua nếu không có, nhập 0 hoặc chữ)");
 
         String idRescue = scanner.nextLine();
@@ -304,6 +324,72 @@ public class AnimalMenu {
             animal.setMission(rescueMission);
         }
 
+
+        //show all giống
+        showAllBreed();
+
+        System.out.println("Nhập id giống của động vật muốn thêm");
+
+        String idBreedString = scanner.nextLine();
+
+        int idBreedInt = 0;
+        //xử lí idBreed
+        try {
+            idBreedInt = Integer.parseInt(idBreedString);
+        }
+        catch(NumberFormatException e){
+            System.out.println("Vui lòng nhập số");
+        }
+        Breed breed = breedDao.getBreedById(idBreedInt);
+        //gán id giống
+        if(breed != null) {
+            animal.setBreed(breed);
+        }
+        else{
+            System.out.println("không có giống");
+            return;
+        }
+
+        System.out.println("Nhập tên thus cưng");
+        animal.setName(scanner.nextLine());
+
+
+        System.out.println("Nhập tuổi ước tính");
+        String ageString = scanner.nextLine();
+        int ageInt = 0;
+        try{
+            ageInt = Integer.parseInt(ageString);
+        }
+        catch(NumberFormatException e){
+            System.out.println("Nhập số");
+        }
+        animal.setEstimatedAge(ageInt); //set tuổi
+        boolean isValid = true;
+        while(isValid) {
+
+            System.out.println("Nhập ngày tham giao trạm cứu hộ theo định dangg dd/MM/yyyy (ví dụ 15/02/2026");
+
+            String dateString = scanner.nextLine();
+
+            LocalDate intakeDate = null;
+            DateTimeFormatter intakeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            try {
+                intakeDate = LocalDate.parse(dateString, intakeFormat);
+                animal.setIntakeDate(intakeDate);
+                isValid = false;
+            } catch (DateTimeParseException e) {
+                System.out.println("Nhập sai định dạng vui lòng nhập lại");
+            }
+        }
+
+        System.out.println("Nhập tình trạng sức khỏe");
+        
+        animal.setCurrentHealthStatus(scanner.nextLine());
+        
+        animal.setAdoptionStatus("Chưa được nhận nuôi");
+
+        animalDao.save(animal);
 
     }
 

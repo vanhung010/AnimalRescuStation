@@ -2,44 +2,37 @@ package project.dao;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-import project.entity.RescueRequest;
+import project.entity.Animal;
 import project.util.HibernateUtil;
 
 import java.util.List;
 
-public class RescueRequestDao {
-
-    //Thêm yêu cầu cứu hộ
-    public void save(RescueRequest rescueRequest){
+public class AnimalDao {
+    //thêm động vật
+    public void save(Animal animal){
         Transaction transaction = null;
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             transaction = session.beginTransaction();
-
-            session.save(rescueRequest);
-
+            session.save(animal);
             transaction.commit();
-
+            System.out.println("Thêm thành công động vật " + animal.getName());
         }
         catch (Exception e){
-            transaction.rollback();
             e.printStackTrace();
-        }
-
-    }
-
-    //danh sách những yêu cầu cứu hộ
-    public List<RescueRequest> getAllRescurequest(){
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            return session.createQuery("FROM RescueRequest").list();
+            transaction.rollback();
         }
     }
 
-    //lấy yêu cầu cứu hộ bằng id
-
-    public RescueRequest getRescueRequestById(int id){
+    public Animal getAnimalById(int id){
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            return session.get(RescueRequest.class, id);
+            return session.get(Animal.class, id);
+        }
+    }
+
+    //Lấy danh sách tất cả động vật
+    public List<Animal> getAllAnimal(){
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            return session.createQuery("FROM Animal", Animal.class).stream().toList();
         }
     }
 }

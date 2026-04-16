@@ -11,7 +11,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class AnimalMenu {
@@ -21,61 +23,115 @@ public class AnimalMenu {
     public void displayMenu() {
         while (true) {
             System.out.println("\n--- QUẢN LÝ DANH MỤC LOÀI ---");
-//            System.out.println("1. Thêm loài mới");
-//            System.out.println("2. Xem danh sách các loài");
-//            System.out.println("3. Tìm kiếm loài theo tên");
-//            System.out.println("4. Thêm giống mới");
-//            System.out.println("5. Thêm tình nguyện viên");
-//            System.out.println("6. Thêm bác sĩ thú y");
-//            System.out.println("7. Danh sách tất cả các nhân viên");
-//            System.out.println("8. Thêm người báo cứu hộ");
-//            System.out.println("9. THêm yêu cầu cứu hộ");
-//            System.out.println("10. Danh sách những yêu cầu cứu hộ");
-//            System.out.println("0. Quay lại menu chính");
+
             System.out.println("1. Xem danh sách các loài");
             System.out.println("2. Xem danh sách tất cả các nhân viên");
             System.out.println("3. Xem danh sách những yêu cầu cứu hộ");
             System.out.println("4. Xem danh sách những người báo cứu hộ");
             System.out.println("5. Xem danh sách những cuộc cứu hộ");
-            System.out.println("6. Xem danh sách động vật");
+            System.out.println("6. Xem danh sách động vật"); //unfinish
             System.out.println("7. Xem danh sách những người nhận nuôi");
-            System.out.println("8. Xem danh sách những lần nhận nuôi");
-            System.out.println("9. THêm yêu cầu cứu hộ");
-            System.out.println("10. ");
+            System.out.println("8. Xem danh sách những lần nhận nuôi");//unfinish
+            System.out.println("9. Xem danh sách hồ sơ y tế");//unfinish
+            System.out.println("11. Thêm loài mới");
+            System.out.println("12. Thêm giống mới");
+            System.out.println("13. Thêm tình nguyện viên");
+            System.out.println("14. Thêm bác sĩ thú y");
+            System.out.println("15. Thêm người báo cứu hộ");
+            System.out.println("16. Thêm yêu cầu cứu ho");
+            System.out.println("17. Thêm Chuyến cứu hộ");
+            System.out.println("18. Tiếp nhận Động vật");//unfinish
+            System.out.println("19. Thêm Hồ sơ Y tế");//unfinish
+            System.out.println("20. Thêm Người nhận nuôi");
+            System.out.println("21. Thêm Giao dịch nhận nuôi");//unfinish
+            System.out.println("22. Thêm khoản Quyên góp");//unfinish
+            System.out.println("23. Cập nhật trạng thái yêu cầu cứu hộ");//unfinish
+            System.out.println("24. Cập nhật trạng thái chuyến cứu hộ");//unfinish
+            System.out.println("25. Cập nhật trạng thái động vật");//unfinish
+            System.out.println("26. Tính tổng số tiền quyên góp (Donation) trong tháng.");//unfinish
+            System.out.println("27. Tra cứu Lịch sử");//unfinish
             System.out.println("0. Quay lại menu chính");
             System.out.print("Chọn chức năng: ");
 
             int choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:
-                    addNewSpecies();
-                    break;
-                case 2:
                     showAllSpecies();
                     break;
+                case 2:
+                    allStaff();
+                    break;
                 case 3:
-                   findSpecies();
+                    allRescueRequest();
                     break;
                 case 4:
-                    addNewBreed();
+                    showAllReporters();
                     break;
                 case 5:
-                    addStaff(true);
+                    showAllRescueMissions();
                     break;
                 case 6:
-                    addStaff(false);
+                    showAllAnimals();
                     break;
                 case 7:
-                   allStaff();
+                    showAllAdopters();
                     break;
                 case 8:
-                    addReporter();
+                    showAllAdoptionTransactions();
                     break;
                 case 9:
+                    showAllMedicalRecords();
+                    break;
+                case 11:
+                    addNewSpecies();
+                    break;
+                case 12:
+                    addNewBreed();
+                    break;
+                case 13:
+                    addStaff(true);
+                    break;
+                case 14:
+                    addStaff(false);
+                    break;
+                case 15:
+                    addReporter();
+                    break;
+                case 16:
                     addRescueRequest();
                     break;
-                case 10:
-                    allRescueRequest();
+                case 17:
+                    addRescueMission();
+                    break;
+                case 18:
+                    admitAnimal();
+                    break;
+                case 19:
+                    addMedicalRecord();
+                    break;
+                case 20:
+                    addAdopter();
+                    break;
+                case 21:
+                    addAdoptionTransaction();
+                    break;
+                case 22:
+                    addDonation();
+                    break;
+                case 23:
+                    updateRescueRequestStatus();
+                    break;
+                case 24:
+                    updateRescueMissionStatus();
+                    break;
+                case 25:
+                    updateAnimalStatus();
+                    break;
+                case 26:
+                    calculateMonthlyDonationTotal();
+                    break;
+                case 27:
+                    lookupHistory();
                     break;
                 case 0:
                     return;
@@ -83,6 +139,210 @@ public class AnimalMenu {
                     System.out.println("❌ Lựa chọn không hợp lệ!");
             }
         }
+    }
+
+    private void addRescueMission() {
+        allRescueRequest();
+
+        RescueRequest rescueRequest = new RescueRequest();
+        RescueMission rescueMission = new RescueMission();
+        RescueMissionDao rescueMissionDao = new RescueMissionDao();
+        StaffDao staffDao = new StaffDao();
+
+        RescueRequestDao rescueRequestDao = new RescueRequestDao();
+
+        System.out.println("Nhập id yêu cầu cứu hộ");
+        int requestid = Integer.parseInt(scanner.nextLine());
+        rescueRequest = rescueRequestDao.getRescueRequestById(requestid);
+
+        while(true){
+            System.out.println("Nhập id nhân viên thực hiện cứu hộ (Nhập 0 nếu đã thêm đủ nhân viên)");
+            String idStaffString = scanner.nextLine();
+            int idStaff =0;
+           try{
+
+                idStaff = Integer.parseInt(idStaffString);
+                if(idStaff == 0){
+                    System.out.println("Chốt danh sách nhân sự tham gia chuyến đi");
+                    break;
+                }
+               Staff staff = staffDao.getStaffById(idStaff);
+               if(staff != null){
+                   rescueMission.add(staff);
+               }
+               else{
+                   System.out.println("Không tìm thấy nhân viên với id "+ idStaff);
+               }
+
+           }
+           catch (NumberFormatException e) {
+               System.out.println("Vui long nhập đúng id nhân viên");
+           }
+        }
+
+
+            System.out.println("Nhập thời gian gửi chuyến cứu hộ (yyyy-MM-ddTHH:mm) ví dụ 2026-04-14T19:30");
+
+        String date = scanner.nextLine();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("u-M-d'T'HH:mm");
+        try {
+            rescueMission.setDispatchTime(LocalDateTime.parse(date, formatter));
+        } catch (DateTimeParseException e) {
+            System.out.println("❌ Định dạng ngày giờ không hợp lệ! Vui lòng sử dụng định dạng yyyy-MM-ddTHH:mm");
+            return;
+        }
+
+        System.out.println("Nhập thời gian chuyến cứu hộ về (yyyy-MM-ddTHH:mm) ví dụ 2026-04-14T19:30");
+
+        String date1 = scanner.nextLine();
+
+        try {
+            rescueMission.setReturnTime(LocalDateTime.parse(date1, formatter));
+        } catch (DateTimeParseException e) {
+            System.out.println("❌ Định dạng ngày giờ không hợp lệ! Vui lòng sử dụng định dạng yyyy-MM-ddTHH:mm");
+            return;
+        }
+
+        System.out.println("Nhập tình trạng chuyến cứu hộ");
+        rescueMission.setMissionStatus(scanner.nextLine());
+
+        System.out.println("Nhập ghi chú chuyến cứu hộ nếu có");
+        rescueMission.setMissionNote(scanner.nextLine());
+
+        rescueMission.setRequest(rescueRequest);
+
+        rescueMissionDao.save(rescueMission);
+
+    }
+
+    private void showAllReporters() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            List<Reporter> reporters = session.createQuery("FROM Reporter", Reporter.class).list();
+            if (reporters.isEmpty()) {
+                System.out.println("Danh sách trống.");
+                return;
+            }
+
+            System.out.println("\n--- DANH SÁCH NGƯỜI BÁO CỨU HỘ ---");
+            for (Reporter reporter : reporters) {
+                System.out.printf("ID: %d | Tên: %s | SĐT: %s | Địa chỉ: %s%n",
+                        reporter.getReporterId(),
+                        reporter.getFullName(),
+                        reporter.getPhoneNumber(),
+                        reporter.getAddress());
+            }
+        }
+    }
+
+    private void showAllRescueMissions() {
+        RescueMissionDao rescueMissionDao = new RescueMissionDao();
+
+        List<RescueMission> rescueMissionList = rescueMissionDao.getAllRescueMission();
+
+        if(rescueMissionList.isEmpty()){
+            System.out.println("Chưa có chuyến cứu hộ được thực hiện");
+        }
+        else {
+            for(RescueMission rescueMission: rescueMissionList){
+                LocalDateTime dispath = rescueMission.getDispatchTime();
+                LocalDateTime return1 = rescueMission.getReturnTime();
+
+                System.out.printf("ID: %d | Thời gian gửi chuyến cứu hộ: Ngày %td, Tháng %tm, năm %tY, %tH giờ, %tM phút | Thời gian chuyến cứu hộ quay về: Ngày %td, Tháng %tm, năm %tY, %tH giờ, %tM phút | Tình trạng chuyến cứu hộ: %s | Ghi chú: %s%n",
+                        rescueMission.getMissionId(), dispath, dispath, dispath, dispath, dispath, return1, return1, return1, return1, return1, rescueMission.getMissionStatus(), rescueMission.getMissionNote());
+            }
+        }
+
+    }
+
+    private void showAllAnimals() {
+    }
+
+    private void showAllAdopters() {
+        AdopterDao adopterDao = new AdopterDao();
+        List<Adopter> adopterList = adopterDao.getAllAdopter();
+        if(adopterList.isEmpty()){
+            System.out.println("Chưa có người nhận nuôi");
+            return;
+        }
+        else{
+            System.out.println("--------Danh sách những người nhận nuôi--------");
+            for (Adopter adopter : adopterList){
+                System.out.printf("ID: %d | Tên: %s | Số điện thoại: %s | Trạng thái: %s%n", adopter.getAdopterId(), adopter.getFullName(), adopter.getPhoneNumber(), adopter.getApplicationApprovalStatus());
+            }
+        }
+
+    }
+
+    private void showAllAdoptionTransactions() {
+    }
+
+    private void showAllMedicalRecords() {
+    }
+
+
+
+    private void admitAnimal() {
+        showAllRescueMissions();
+
+        RescueMissionDao rescueMissionDao = new RescueMissionDao();
+        Animal animal = new Animal();
+        System.out.println("Nhập id cuộc cứu hộ nếu động vật từ cứu hộ(Bỏ qua nếu không có, nhập 0 hoặc chữ)");
+
+        String idRescue = scanner.nextLine();
+        int idRescueInt =0;
+
+        try {
+            idRescueInt = Integer.parseInt(idRescue);
+        }
+        catch (NumberFormatException e){
+        }
+
+        RescueMission rescueMission = rescueMissionDao.getRescueMissionById(idRescueInt);
+        //Nếu cứu hộ khác null thì set
+        if(rescueMission != null){
+            animal.setMission(rescueMission);
+        }
+
+
+    }
+
+    private void addMedicalRecord() {
+    }
+
+    private void addAdopter() {
+        //khởi tạo
+        AdopterDao adopterDao = new AdopterDao();
+        Adopter adopter = new Adopter();
+        System.out.println("Nhâp tên người nhận nuôi");
+        adopter.setFullName(scanner.nextLine());
+        System.out.println("Nhập số điện thoại của người nhận nuôi");
+        adopter.setPhoneNumber(scanner.nextLine());
+        System.out.println("Nhap địa chỉ người nhận nuôi");
+        adopter.setResidentialAddress(scanner.nextLine());
+        adopter.setApplicationApprovalStatus("Đang chờ phê duyệt");
+        adopterDao.save(adopter);
+    }
+
+    private void addAdoptionTransaction() {
+    }
+
+    private void addDonation() {
+    }
+
+    private void updateRescueRequestStatus() {
+    }
+
+    private void updateRescueMissionStatus() {
+    }
+
+    private void updateAnimalStatus() {
+    }
+
+    private void calculateMonthlyDonationTotal() {
+    }
+
+    private void lookupHistory() {
     }
 
     public void allRescueRequest(){
@@ -99,11 +359,19 @@ public class AnimalMenu {
     }
 
     public void addRescueRequest(){
+        showAllReporters();
+
+
         RescueRequestDao rescueRequestDao = new RescueRequestDao();
         ReporterDao reporterDao = new ReporterDao();
 
         RescueRequest rescueRequest = new RescueRequest();
         Reporter reporter = new Reporter();
+
+        rescueRequest.setRequestStatus("Đang thực hiện");
+
+
+
 
         System.out.println("Nhập thời gian cuộc cứu hộ (yyyy-MM-ddTHH:mm) ví dụ 2026-04-14T19:30");
 
@@ -133,9 +401,11 @@ public class AnimalMenu {
 
         rescueRequest.setReporter(reporter);
 
-        rescueRequest.setRequestStatus("Đang cứu hộ");
+
 
         rescueRequestDao.save(rescueRequest);
+
+        System.out.println("Thêm thành ooong yêu cầu cứu hộ");
     }
 
     private void addReporter(){
@@ -149,6 +419,8 @@ public class AnimalMenu {
         reporter.setAddress(scanner.nextLine());
 
         reporterDao.save(reporter);
+
+        System.out.println("Thêm thành công người báo tin: " + reporter.getFullName());
     }
 
     private void allStaff(){

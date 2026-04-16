@@ -39,4 +39,10 @@ public class StaffDao {
             return hql.list();
         }
     }
+
+    public Staff getStaffById(int id){
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            return session.get(Staff.class, id);
+        }
+    }
 }

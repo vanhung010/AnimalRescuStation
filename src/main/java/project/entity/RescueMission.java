@@ -101,5 +101,8 @@ public class RescueMission {
         this.rescuedAnimals = rescuedAnimals;
     }
 
-    // @OneToMany
+    public void add(Staff staff){
+        this.staffMembers.add(staff);
+        staff.getMissions().add(this);
+    }
 }
